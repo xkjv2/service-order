@@ -30,10 +30,10 @@ class LoginSerializers(serializers.Serializer):
             user = authenticate(request=self.context.get('request'),
                                 username=username, password=password)
             if not user:
-                msg = _('Unable to log in with provided credentials.')
+                msg = ugettext_lazy('Unable to log in with provided credentials.')
                 raise serializers.ValidationError(msg, code='authorization')
         else:
-            msg = _('Must include "username" and "password".')
+            msg = ugettext_lazy('Must include "username" and "password".')
             raise serializers.ValidationError(msg, code='authorization')
 
         data['user'] = user
