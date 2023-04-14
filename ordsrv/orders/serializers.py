@@ -3,7 +3,6 @@ from rest_framework import serializers
 
 # Django Imports
 from django.contrib.auth import authenticate, get_user_model
-from django.utils.translation import ugettext_lazy
 
 # Local Imports
 from .models import ServiceOrder
@@ -15,7 +14,7 @@ User = get_user_model()
 class LoginSerializers(serializers.Serializer):
     email = serializers.CharField(max_length=255)
     password = serializers.CharField(
-        label=ugettext_lazy("Password"),
+        label="Password",
         style={'input_type': 'password'},
         trim_whitespace=False,
         max_length=128,
@@ -30,10 +29,10 @@ class LoginSerializers(serializers.Serializer):
             user = authenticate(request=self.context.get('request'),
                                 username=username, password=password)
             if not user:
-                msg = ugettext_lazy('Unable to log in with provided credentials.')
+                msg = 'Unable to log in with provided credentials.'
                 raise serializers.ValidationError(msg, code='authorization')
         else:
-            msg = ugettext_lazy('Must include "username" and "password".')
+            msg = 'Must include "username" and "password".'
             raise serializers.ValidationError(msg, code='authorization')
 
         data['user'] = user
