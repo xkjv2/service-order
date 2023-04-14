@@ -1,13 +1,13 @@
 # Rest Imports
 from rest_framework                     import status
+from rest_framework.authtoken.models    import Token
 from rest_framework.views               import APIView
 from rest_framework.response            import Response
 from rest_framework.permissions         import IsAuthenticated, IsAdminUser
-from rest_framework.authtoken.views     import ObtainAuthToken
-from rest_framework.settings            import api_settings
 
 # Django Imports
-from django.shortcuts   import get_object_or_404
+from django.shortcuts               import get_object_or_404
+from django.contrib.auth.models     import update_last_login
 
 # Local Imports
 from orders.models      import ServiceOrder
@@ -72,3 +72,4 @@ class ServiceOrderAPIView(APIView):
         """
         ServiceOrder.objects.get(pk=request.DELETE['order_id']).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
